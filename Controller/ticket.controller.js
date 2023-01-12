@@ -25,10 +25,10 @@ const createTicket = async (req, res) => {
         if(Ticket){
             const user = await User.findOne({userId:req.body.userId})
 
-            user.ticketsCreated.push(ticket._id)
+            user.ticketsCreated.push(Ticket._id)
             await user.save()
 
-            engineer.ticketsAssigned.push(ticket._id)
+            engineer.ticketsAssigned.push(Ticket._id)
             await engineer.save()
 
             res.status(201).send(objectConverter.ticketresponse(Ticket))
@@ -40,8 +40,8 @@ const createTicket = async (req, res) => {
 }
 
 const canUpdate = (user,Ticket)=>{
-return user.userId == ticket.reporter || 
-user.userId == ticket.assignee || 
+return user.userId == Ticket.reporter || 
+user.userId == Ticket.assignee || 
 user.userType == constants.userType.admin
 }
 
@@ -106,18 +106,7 @@ const getAllTicket = async (req, res) => {
     res.status(200).send(objectConverter.ticketListResponse(Ticket))
      
 }
-// const getAllTicket = async (req, res) =>{
-//     const queryObj = {
-//         reporter:req.userId
-//     }
 
-//     if(req.query.status!=undefined){
-//         queryObj.status = req.query.status;
-//     }
-//     const tickets = await ticket.find(queryObj);
-//     console.log(tickets)
-//     res.status(200).send(ObjectConverter.ticketListResponse(tickets))
-// }
 
 const getOneTicket = async (req, res) =>{
     const Ticket = await ticket.find({_id:req.params.id})
