@@ -123,7 +123,7 @@ const getOneTicket = async (req, res) =>{
     const Ticket = await ticket.find({_id:req.params.id})
     console.log("Ticket",Ticket)
     res.status(200).send(Ticket)
-    // res.status(200).send(ObjectConverter.ticketresponse(Ticket))
+    // res.status(200).send(ObjectConverter.ticketresponse(Ticket)
 }
 
 
